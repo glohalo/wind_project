@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <style>
+            table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+
+            td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            }
+
+            tr:nth-child(even) {
+            background-color: #dddddd;
+            }
+
+            #weather {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    {% for col in colnames %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    {% for col in colnames %}
+                        {% if col=="url": %}
+                        <td>
+                            <!-- row['url'] gives us the static image path-->
+                            <!-- we pass it into url_for to display the image-->
+                            <img src="{{ url_for('static', filename=record[col]) }}"
+                                style="width:200px"/>
+                        </td>
+                        {% else %}
+                        <td>{{ record[col] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
